@@ -16,7 +16,7 @@ def createCNF(input, enumerated):
 	for iter in formulaDic2:
 		formulaDic.append(iter)
 
-	print(formulaDic)
+	# print(formulaDic)
 
 	return getCNFformEntireLine(formulaDic)
 

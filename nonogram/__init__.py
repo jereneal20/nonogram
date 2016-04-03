@@ -49,7 +49,38 @@ def main(argv):
 	infix = resultFormula.formulaAsInfixString()
 	varDictionary = minisat.createVarDictionary(resultFormula)
 	miniSATStr = minisat.getMiniSATString(infix, varDictionary)
-	print(minisat.getMiniSATResult(miniSATStr))
+	# print(minisat.getMiniSATResult(miniSATStr))
+
+
+	f = open("miniSAT.out", 'r')
+	f.readline()
+	result = f.readline().split()
+	intResult = []
+	for iter in result:
+		intIter = int(iter)
+		if intIter != 0:
+			intResult.append(intIter)
+			pass
+
+	dictionary2 = {}
+	for iter in varDictionary:
+		if varDictionary[iter] in intResult:
+			dictionary2[iter] = 1
+		else:
+			dictionary2[iter] = -1
+
+
+	lastString = ""
+	for iter in range(sampleInput[0]):
+		for iter2 in range(sampleInput[2]):
+			if dictionary2["a"+str(iter)+str(iter2)] == 1:
+				lastString += "#"
+			else:
+				lastString += "."
+		lastString +="\n"
+	print(lastString)
+
+
 
 
 if __name__ == "__main__":
