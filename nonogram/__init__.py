@@ -36,6 +36,20 @@ def getInputFromUser():
 	return [numOfRows,rowInfo,numOfCols,columnInfo]
 
 
+def getNonogramString(input, varDictionary):
+	f = open("miniSAT.out", 'r')
+	resultDic = minisat.getResultDictionary(f, varDictionary)
+
+	lastString = ""
+	for iter in range(input[0]):
+		for iter2 in range(input[2]):
+			if resultDic["a" + str(iter) + str(iter2)] == "1":
+				lastString += "#"
+			else:
+				lastString += "."
+		lastString += "\n"
+	return lastString
+
 def main(argv):
 	# print(getInputFromUser())
 
@@ -52,32 +66,7 @@ def main(argv):
 	# print(minisat.getMiniSATResult(miniSATStr))
 
 
-	f = open("miniSAT.out", 'r')
-	f.readline()
-	result = f.readline().split()
-	intResult = []
-	for iter in result:
-		intIter = int(iter)
-		if intIter != 0:
-			intResult.append(intIter)
-			pass
-
-	dictionary2 = {}
-	for iter in varDictionary:
-		if varDictionary[iter] in intResult:
-			dictionary2[iter] = 1
-		else:
-			dictionary2[iter] = -1
-
-
-	lastString = ""
-	for iter in range(sampleInput[0]):
-		for iter2 in range(sampleInput[2]):
-			if dictionary2["a"+str(iter)+str(iter2)] == 1:
-				lastString += "#"
-			else:
-				lastString += "."
-		lastString +="\n"
+	lastString = getNonogramString(sampleInput, varDictionary)
 	print(lastString)
 
 
