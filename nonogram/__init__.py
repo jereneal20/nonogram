@@ -14,6 +14,10 @@ sampleInput = [6, [[2, 1],[ 1, 3], [1, 2], [3], [4], [1]],
 			   6, [[1], [5], [2], [5], [2, 1], [2]]]
 sampleInput3 = [2, [[2, 1, 2],[1, 3]],
 			   10, [[1], [5], [2], [5], [2, 1], [2],[2], [5], [2, 1], [2]]]
+sampleInput4 = [2, [[1, 3],[3]],
+			   6, [[1], [1], [1], [2], [1], [1]]]
+sampleInput5 = [2, [[2], [2]],
+				3, [[1], [2], [1]]]
 
 
 def getInputFromUser():
@@ -39,7 +43,7 @@ def getInputFromUser():
 def getNonogramString(input, varDictionary):
 	f = open("miniSAT.out", 'r')
 	resultDic = minisat.getResultDictionary(f, varDictionary)
-
+	# print(resultDic)
 	lastString = ""
 	for iter in range(input[0]):
 		for iter2 in range(input[2]):
@@ -53,20 +57,18 @@ def getNonogramString(input, varDictionary):
 def main(argv):
 	# print(getInputFromUser())
 
-	enumerated = CaseEnumerator.caseEnumaration(sampleInput)
-	print(enumerated[0])
-	print(enumerated[1])
+	enumerated = CaseEnumerator.caseEnumaration(sampleInput4)
+	# print(enumerated[0])
+	# print(enumerated[1])
 
-	resultFormula = FormulateCNF.createCNF(sampleInput, enumerated)
-
+	resultFormula = FormulateCNF.createCNF(sampleInput4, enumerated)
 
 	infix = resultFormula.formulaAsInfixString()
 	varDictionary = minisat.createVarDictionary(resultFormula)
 	miniSATStr = minisat.getMiniSATString(infix, varDictionary)
-	# print(minisat.getMiniSATResult(miniSATStr))
+	minisat.getMiniSATResult(miniSATStr)
 
-
-	lastString = getNonogramString(sampleInput, varDictionary)
+	lastString = getNonogramString(sampleInput4, varDictionary)
 	print(lastString)
 
 

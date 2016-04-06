@@ -17,7 +17,6 @@ def createCNF(input, enumerated):
 		formulaDic.append(iter)
 
 	# print(formulaDic)
-
 	return getCNFformEntireLine(formulaDic)
 
 
@@ -85,10 +84,10 @@ def getCNFformEntireLine(formulaDic):
 	for iter in formulaDic:
 		oneLineFormula = getCNFformOneLine(iter)
 		cnfFormList.append(oneLineFormula)
-	print(cnfFormList)
 
 	masterFormula = cnfFormList[0]
 	for iter in cnfFormList:
+		# print(iter.formulaAsString())
 		if iter != masterFormula:
 			masterFormula = CNF.wrapBinFormula("&", masterFormula, iter)
 	return masterFormula
