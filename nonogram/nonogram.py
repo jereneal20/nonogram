@@ -2,6 +2,7 @@
 import os, sys, subprocess
 from collections import deque
 sys.path.insert(0, '../../cnf/cnf')
+sys.path.insert(0, '../cnf/cnf')
 
 from Formula import Formula
 import ConvertToCNF as CNF
@@ -18,6 +19,11 @@ sampleInput4 = [2, [[1, 3],[3]],
 			   6, [[1], [1], [1], [2], [1], [1]]]
 sampleInput5 = [2, [[2], [2]],
 				3, [[1], [2], [1]]]
+sampleInput6 = [2, [[2], [1]],
+				3, [[1], [2], [0]]]
+sampleInput7 = [10, [[3, 3], [1], [1], [5], [2], [2], [2], [2], [2], [2]],
+				10, [[1], [1], [10], [7], [1], [1], [1], [1], [1], [1]]]
+
 
 
 def getInputFromUser():
@@ -56,19 +62,20 @@ def getNonogramString(input, varDictionary):
 
 def main(argv):
 	# print(getInputFromUser())
+	input = getInputFromUser()
 
-	enumerated = CaseEnumerator.caseEnumaration(sampleInput4)
+	enumerated = CaseEnumerator.caseEnumaration(input)
 	# print(enumerated[0])
 	# print(enumerated[1])
 
-	resultFormula = FormulateCNF.createCNF(sampleInput4, enumerated)
+	resultFormula = FormulateCNF.createCNF(input, enumerated)
 
 	infix = resultFormula.formulaAsInfixString()
 	varDictionary = minisat.createVarDictionary(resultFormula)
 	miniSATStr = minisat.getMiniSATString(infix, varDictionary)
 	minisat.getMiniSATResult(miniSATStr)
 
-	lastString = getNonogramString(sampleInput4, varDictionary)
+	lastString = getNonogramString(input, varDictionary)
 	print(lastString)
 
 
